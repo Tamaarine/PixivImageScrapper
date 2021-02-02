@@ -12,7 +12,7 @@ chrome_options.add_argument("user-data-dir=selenium")
 browser = webdriver.Chrome(chrome_options=chrome_options)
 
 # Folder to store in
-default_path = "D:\\Downloads"
+default_path = "Downloads"
 
 
 def download_image(url):
@@ -30,7 +30,7 @@ def download_image(url):
                                    'referer': 'https://www.pixiv.net/'}, stream=True)
 
     file_name = url.split("/")[-1]  # Retrieve the file name of the link
-    together = os.path.join(default_path, file_name)  # Join together path with the file_name. Where to store the file
+    together = os.path.join(os.getcwd(), default_path, file_name)  # Join together path with the file_name. Where to store the file
     file_size = int(response.headers["Content-Length"])  # Get the total byte size of the file
     chunk_size = 1024 # Consuming in 1024 byte per chunk
 
@@ -143,7 +143,7 @@ def main():
         download_image(link)
 
     # Signal the program is completed
-    print("Your file is available at " + default_path)
+    print("Your file is available at " + os.path.join(os.getcwd(), default_path))
 
 
 if __name__ == "__main__":
